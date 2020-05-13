@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option go_package = ".;proto";
+import "annotations.proto";
+
+message ArticleIn {
+    string articleType = 1; //类型
+    int64 pageCurrent = 2; //当前页
+    string search = 3; //搜索
+}
+
+message ArticleListOut {
+    int64 code = 1;
+    string message = 2;
+    ArticleListData data = 4;
+}
+
+//文章列表定义
+message ArticleListData {
+    int64 pageCount = 1; // 文章总页数
+    int64 pageLimit = 2;
+    repeated ArticleData article = 3;
+}
+
+
+message ArticleData {
+    string name = 1; //文章名
+    string account = 2; //作者
+    string time = 3; //创建时间
+    int64 commentNum = 4; //评论数量
+    int64 articleId = 6; //文章id
+}
+
+//获取文章列表
+service ArticleList {
+    rpc Call (ArticleIn) returns (ArticleListOut) {
+        option (google.api.http) = {
+            post:"/article"
+            body:"*"
+        };
+    };
+}

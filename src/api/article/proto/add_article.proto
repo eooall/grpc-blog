@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package=".;proto";
+
+import "annotations.proto";
+
+message AddArticleIn {
+    string token = 1;
+    int64  categoryId = 2;
+    string title = 3;
+    string excerpt = 4;
+    string slug = 5;
+    string body =6;
+}
+
+message AddArticleOut {
+    int64 code = 1;
+    OutData data = 2;
+    string message = 3;
+}
+
+message OutData{
+
+}
+
+service AddArticle {
+    rpc Call(AddArticleIn) returns (AddArticleOut){
+        option (google.api.http) = {
+            post:"/add_article"
+            body:"*"
+        };
+    }
+}

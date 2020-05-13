@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option go_package = ".;proto";
+import "annotations.proto";
+
+message In {
+    string name = 1;
+    string pwd = 2;
+    string pwds = 3;
+    string email = 4;
+}
+
+//返回
+message Out {
+    int32 code = 1;
+    Data data = 2;
+    string message =3;
+}
+
+//返回具体数据
+message Data {
+    string token = 1;
+}
+
+service Register {
+    rpc Call (In) returns (Out) {
+        option (google.api.http) = {
+            post:"/reg"
+            body:"*"
+        };
+    };
+}
