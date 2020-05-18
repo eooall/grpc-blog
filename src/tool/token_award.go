@@ -14,20 +14,22 @@ func TokenAward(MapClaims jwt.MapClaims) (tokenStr string, err error) {
 
 //校验token,返回用户ID
 //-1表示token校验出错
-func TokenCheck(tokenStr string, secret string) (id int, err error) {
-	//tokenString := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZW9vYWxsIiwibmJmIjoi6L-Z5piv5rWL6K-VIiwidGltZSI6IjIwMTUifQ.BikB9hpeLDgMAlpLZkC-Si8fC4raeSkYxpFWRNIRTho"
+//secret string
+func TokenCheck(tokenStr string) (id float64, err error) {
 	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return 0, err
 		}
 		return []byte("abc"), nil
 	})
-
+	if err != nil {
+		return -1, err
+	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		if v, ok := claims["id"].(int); ok {
+		if v, ok := claims["id"].(float64); ok {
 			return v, nil
 		}
-		return 0, errors.New("token校验转换int出错")
+		return 0, errors.New("token校验转换float64出错")
 	} else {
 		return -1, nil
 	}

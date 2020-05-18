@@ -14,7 +14,7 @@ type LoginService struct {
 	Err     error
 	Message string
 	Token   string
-	id      int
+	id      int64
 }
 
 func (s *LoginService) Login() *LoginService {
