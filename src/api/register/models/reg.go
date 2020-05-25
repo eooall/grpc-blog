@@ -18,7 +18,7 @@ type Users struct {
 }
 
 func AddUser(u *Users) (int64, error) {
-	stms, err := models.DB.DB().Prepare("INSERT INTO users(name,avatar,email,password,created_at,updated_at) values(?,?,?,?,?,?)")
+	stms, err := models.DB.Prepare("INSERT INTO users(name,avatar,email,password,created_at,updated_at) values(?,?,?,?,?,?)")
 	if err != nil {
 		return 0, err
 	}

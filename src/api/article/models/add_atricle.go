@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type Article struct {
+type AddArticleStruct struct {
 	Body       string
 	CategoryId int64 //类别id
 	UserId     int64
@@ -16,8 +16,8 @@ type Article struct {
 	UpdatedAt  time.Time
 }
 
-func AddArticle(m *Article) error {
-	stmt, err := models.DB.DB().Prepare("INSERT INTO topics(category_id,user_id,title,excerpt,slug,body,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?)")
+func AddArticle(m *AddArticleStruct) error {
+	stmt, err := models.DB.Prepare("INSERT INTO topics(category_id,user_id,title,excerpt,slug,body,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?)")
 	if err != nil {
 		return err
 	}

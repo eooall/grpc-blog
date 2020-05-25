@@ -27,7 +27,7 @@ func (s *AddArticle) AddArticle() *AddArticle {
 		s.Err = errors.New("token验证失败")
 		return s
 	}
-	m := &models.Article{}
+	m := &models.AddArticleStruct{}
 	m.UpdatedAt = time.Now()
 	m.CreateTime = time.Now()
 	m.Body = s.Body
@@ -42,6 +42,7 @@ func (s *AddArticle) AddArticle() *AddArticle {
 		s.Err = errors.New("插入失败")
 		return s
 	} else {
+		s.Code = 200
 		s.Message = "添加成功"
 	}
 	return s

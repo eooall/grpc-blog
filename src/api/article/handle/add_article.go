@@ -25,7 +25,7 @@ func (h *AddArticle) Call(ctx context.Context, in *pb.AddArticleIn) (*pb.AddArti
 		}, nil
 	}
 	return &pb.AddArticleOut{
-		Code:    200,
+		Code:    s.Code,
 		Message: s.Message,
 		Data:    &pb.OutData{},
 	}, nil
